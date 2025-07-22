@@ -1,0 +1,215 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel", "cython>=3.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "advanced-gpu-cluster-manager"
+version = "1.0.0"
+description = "Production-ready distributed GPU cluster management with microsecond-level scheduling"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    {name = "GPU Cluster Manager Team", email = "team@gpucluster.dev"}
+]
+maintainers = [
+    {name = "GPU Cluster Manager Team", email = "team@gpucluster.dev"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: System :: Distributed Computing",
+    "Topic :: System :: Hardware",
+]
+keywords = [
+    "gpu", "cluster", "distributed", "scheduling", "cuda", "rocm", "nvidia", "amd", "intel",
+    "real-time", "microsecond", "performance", "raft", "consensus", "rdma", "multi-tenant"
+]
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.24.0",
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "typing-extensions>=4.7.0",
+    "pynvml>=11.5.0",
+    "grpcio>=1.54.0",
+    "grpcio-tools>=1.54.0",
+    "protobuf>=4.23.0",
+    "aiohttp>=3.8.0",
+    "websockets>=11.0.0",
+    "asyncio>=3.4.3",
+    "uvloop>=0.17.0",
+    "cython>=3.0.0",
+    "numba>=0.57.0",
+    "prometheus-client>=0.17.0",
+    "opentelemetry-api>=1.18.0",
+    "opentelemetry-sdk>=1.18.0",
+    "structlog>=23.1.0",
+    "rich>=13.4.0",
+    "cryptography>=41.0.0",
+    "jwt>=1.3.1",
+    "bcrypt>=4.0.1",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.23.0",
+    "httpx>=0.24.0",
+    "starlette>=0.27.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-mock>=3.11.0",
+    "pytest-benchmark>=4.0.0",
+    "pytest-xdist>=3.3.0",
+    "black>=23.7.0",
+    "mypy>=1.5.0",
+    "ruff>=0.0.280",
+    "pre-commit>=3.3.0",
+]
+docs = [
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.1.0",
+    "mkdocs-mermaid2-plugin>=1.1.0",
+]
+rdma = [
+    "pyverbs>=39.0",  # RDMA support
+    "ibverbs-providers>=39.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/yuchenfama/advanced-gpu-cluster-manager"
+Documentation = "https://github.com/yuchenfama/advanced-gpu-cluster-manager/blob/main/docs/"
+Repository = "https://github.com/yuchenfama/advanced-gpu-cluster-manager.git"
+"Bug Tracker" = "https://github.com/yuchenfama/advanced-gpu-cluster-manager/issues"
+Changelog = "https://github.com/yuchenfama/advanced-gpu-cluster-manager/blob/main/CHANGELOG.md"
+
+[project.scripts]
+gpu-cluster = "gpu_cluster.cli:main"
+gpu-cluster-node = "gpu_cluster.core.node_manager:main"
+gpu-cluster-benchmark = "scripts.performance_benchmark:main"
+
+[tool.setuptools.packages.find]
+include = ["gpu_cluster*"]
+
+[tool.setuptools.package-data]
+gpu_cluster = ["py.typed", "*.pyi"]
+
+[tool.black]
+line-length = 88
+target-version = ["py39", "py310", "py311", "py312"]
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # Directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.mypy]
+python_version = "3.9"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[[tool.mypy.overrides]]
+module = [
+    "pynvml.*",
+    "cuda.*",
+    "hip.*",
+    "rocm.*",
+    "numba.*",
+    "pyverbs.*",
+]
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+    "SIM", # flake8-simplify
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
+"tests/**/*" = ["B018", "S101", "SIM117"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers --strict-config"
+testpaths = ["tests"]
+markers = [
+    "unit: marks tests as unit tests (fast)",
+    "integration: marks tests as integration tests (slow, requires hardware)",
+    "performance: marks tests as performance benchmarks (very slow)",
+    "chaos: marks tests as chaos engineering tests (destructive)",
+    "gpu: marks tests that require GPU hardware",
+    "distributed: marks tests that require multiple nodes",
+    "rdma: marks tests that require RDMA networking",
+]
+asyncio_mode = "auto"
+filterwarnings = [
+    "error",
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+]
+
+[tool.coverage.run]
+source = ["gpu_cluster"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "*/__init__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
