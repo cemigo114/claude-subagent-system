@@ -2,7 +2,7 @@
 
 A production-ready Claude Code system that automatically generates specialized sub-agents for each stage of the product development lifecycle, enabling seamless collaboration through structured handoffs and maintaining context across the entire development workflow.
 
-![Diagram showing product devlopment workflow](/Current vs. future state flowchart example.png)
+![Diagram showing product devlopment workflow](claude-subagent-system/Current vs. future state flowchart example.png)
 
 
 ## 🚀 Key Features
