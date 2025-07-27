@@ -118,6 +118,8 @@ python -m src.main
 - Monitoring and alerting setup
 - Release coordination and rollback
 
+### Coming soon - Security Agent
+
 ## 🔄 Workflow Process
 
 1. **Project Initialization**: User describes project vision in natural language
