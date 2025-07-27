@@ -1,6 +1,8 @@
 # Claude Code Sub-Agent System for Product Development
 
-A production-ready Claude Code system that automatically generates specialized sub-agents for each stage of the product development lifecycle, enabling seamless collaboration through structured handoffs and maintaining context across the entire development workflow. We strongly recommend developing your product design taste, as the design agent is mainly for making React components easier. Also, add your own security agent, AWS bedrock infrastructure with good sandbox isolation and, of course, a lot of human review. Happy Building!
+A production-ready Claude Code system that automatically generates specialized sub-agents for each stage of the product development lifecycle, enabling seamless collaboration through structured handoffs and maintaining context across the entire development workflow.
+
+We strongly recommend developing your product design taste, as the design agent is mainly for making React components easier. Also, add your own security agent, AWS bedrock infrastructure with good sandbox isolation and, of course, a lot of human review. Happy Building!
 
 ![Product development workflow for Claude](flow-product-dev.png)
 ## 🚀 Key Features
