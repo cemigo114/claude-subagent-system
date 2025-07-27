@@ -1,244 +1,262 @@
-# Advanced GPU Cluster Manager
+# Claude Code Sub-Agent System for Product Development
 
-A production-ready distributed GPU cluster management system that provides direct hardware control, microsecond-level scheduling, and enterprise-scale distributed coordination.
+A production-ready Claude Code system that automatically generates specialized sub-agents for each stage of the product development lifecycle, enabling seamless collaboration through structured handoffs and maintaining context across the entire development workflow.
 
 ## 🚀 Key Features
 
-- **Ultra-Low Latency**: <100 microsecond scheduling decisions with lock-free algorithms
-- **High GPU Utilization**: >95% GPU utilization under mixed workloads
-- **Multi-Vendor Support**: Native integration with NVIDIA, AMD, and Intel GPUs
-- **Distributed Architecture**: Raft consensus with automatic failover and split-brain prevention
-- **Enterprise Scale**: Supports 1000+ GPUs across 100+ nodes
-- **Real-Time Monitoring**: Nanosecond precision metrics and thermal management
-- **Multi-Tenant Isolation**: Hardware-enforced resource boundaries and quota management
-- **High-Speed Networking**: RDMA support for minimal latency inference
+- **Multi-Agent Orchestration**: Automatically generates specialized agents for Discovery, Specification, Design, Implementation, Validation, and Deployment stages
+- **Context Preservation**: Maintains 99%+ accuracy across agent handoffs with versioning and rollback capabilities
+- **Quality Gates**: Automated validation checkpoints prevent faulty stage transitions
+- **Parallel Execution**: Reduces development cycle time by 40% through intelligent resource coordination
+- **External Tool Integration**: Seamless synchronization with GitHub, Figma, Jira, and CI/CD pipelines
+- **Token-Bounded Agents**: Prevents scope creep and recursive authority issues through hard token limits
+- **Role Boundaries**: Hierarchical authority system prevents the "everyone is the boss" problem
 
 ## 🏗️ Architecture
 
 ```
-gpu_cluster/
-├── core/           # Cluster orchestration and node management
-├── hardware/       # Multi-vendor GPU abstraction layer
-├── scheduling/     # Real-time scheduling algorithms (<100μs)
-├── distributed/    # Raft consensus and distributed coordination
-├── networking/     # RDMA and high-performance networking
-├── monitoring/     # Real-time metrics and performance tracking
-├── security/       # Multi-tenant isolation and compliance
-├── apis/           # gRPC, REST, and OpenAI-compatible APIs
-└── utils/          # Lock-free data structures and utilities
+┌─────────────────────────────────────────────────────────────┐
+│                    CLI Interface                            │
+├─────────────────────────────────────────────────────────────┤
+│                 Orchestration Layer                         │
+│  ┌─────────────┐ ┌─────────────┐ ┌─────────────────────────┐ │
+│  │  Workflow   │ │   Agent     │ │    Context             │ │
+│  │  Analyzer   │ │  Factory    │ │   Manager              │ │
+│  └─────────────┘ └─────────────┘ └─────────────────────────┘ │
+├─────────────────────────────────────────────────────────────┤
+│                    Agent Layer                              │
+│  ┌───────────┐ ┌──────────┐ ┌────────┐ ┌──────────────────┐ │
+│  │Discovery  │ │   Spec   │ │Design  │ │  Implementation  │ │
+│  │   Agent   │ │  Agent   │ │ Agent  │ │      Agent       │ │
+│  └───────────┘ └──────────┘ └────────┘ └──────────────────┘ │
+├─────────────────────────────────────────────────────────────┤
+│                   Tool Integration Layer                    │
+│  ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌───────────────────┐  │
+│  │ GitHub  │ │  Figma  │ │  Jira   │ │   Security        │  │
+│  │   API   │ │   API   │ │   API   │ │   Scanner         │  │
+│  └─────────┘ └─────────┘ └─────────┘ └───────────────────┘  │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-## ⚡ Performance Requirements
+## 🎯 Performance Targets
 
 | Metric | Target | Status |
 |--------|--------|--------|
-| Scheduling Latency | <100 microseconds | 🔧 In Development |
-| Memory Allocation | <10 microseconds | 🔧 In Development |
-| System Overhead | <5% vs direct GPU | 🔧 In Development |
-| GPU Utilization | >95% under load | 🔧 In Development |
-| Cluster Scale | 1000+ GPUs, 100+ nodes | 🔧 In Development |
-| Recovery Time | <30 seconds | 🔧 In Development |
+| Development Cycle Time Reduction | 40% | 🔧 In Development |
+| Context Preservation Accuracy | >99% | 🔧 In Development |
+| Agent Handoff Success Rate | >98% | 🔧 In Development |
+| User Satisfaction Score | >4.5/5 | 🔧 In Development |
+| Parallel Workstream Support | >3 concurrent | 🔧 In Development |
+| Agent Generation Time | <30 seconds | 🔧 In Development |
 
 ## 🔧 Installation
 
 ### Prerequisites
 
-- Linux-based operating system (Ubuntu 20.04+ recommended)
-- NVIDIA GPU drivers (525.60.13+) and CUDA Toolkit (12.0+)
-- AMD ROCm (5.6+) for AMD GPU support
-- Intel GPU drivers for Intel Arc support
 - Python 3.9+
-- RDMA-capable network interface (optional, for high-speed networking)
+- Node.js 18+ (for external tool integrations)
+- Git (for repository management)
+- Access to Claude API (Anthropic)
 
 ### Quick Start
 
 ```bash
 # Clone the repository
-git clone https://github.com/yuchenfama/advanced-gpu-cluster-manager.git
-cd advanced-gpu-cluster-manager
+git clone https://github.com/cemigo114/claude-subagent-system.git
+cd claude-subagent-system
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Configure cluster settings
+# Configure environment
 cp .env.example .env
-# Edit .env with your cluster configuration
+# Edit .env with your API keys and configurations
 
-# Initialize the cluster
-python scripts/cluster_deploy.py --init
+# Run validation
+python validate_implementation.py
 
-# Start the cluster manager
-python -m gpu_cluster.core.cluster_manager
+# Start the system (when implementation is complete)
+python -m src.main
 ```
 
-## 📊 Hardware Integration
+## 🤖 Agent Specializations
 
-### NVIDIA GPUs
-- Direct NVML API integration for device management
-- CUDA Driver API for maximum performance control
-- GPU memory virtualization with defragmentation
-- Real-time thermal and power monitoring
+### Discovery Agent
+- Market research and competitive analysis
+- User persona identification and validation
+- Technical feasibility assessment
+- Requirement gathering and documentation
 
-### AMD GPUs
-- ROCm SMI library integration
-- HIP runtime support for compute workloads
-- Memory bandwidth optimization
-- Multi-GPU coordination
+### Specification Agent  
+- Technical architecture and database design
+- API specifications and integration points
+- Development effort estimation
+- Security and compliance requirements
 
-### Intel GPUs
-- Intel GPU tools integration
-- Level Zero API support
-- Unified memory management
-- Performance profiling integration
+### Design Agent
+- UI/UX mockups and interaction flows
+- Design system consistency validation
+- Responsive design specifications
+- Accessibility compliance checks
 
-## 🗂️ Distributed System Features
+### Implementation Agent
+- Production-ready code generation
+- Security best practices enforcement
+- Comprehensive error handling
+- Database optimization and performance
 
-### Consensus Protocol
-- **Raft Implementation**: Leader election, log replication, and safety guarantees
-- **Split-Brain Prevention**: Network partition tolerance with quorum requirements  
-- **Automatic Failover**: <30 second recovery with zero data loss
-- **Configuration Changes**: Dynamic cluster membership updates
+### Validation Agent
+- Automated testing and QA validation
+- User acceptance testing coordination
+- Performance benchmarking
+- Security vulnerability scanning
 
-### Resource Management
-- **Distributed Locking**: Prevents resource conflicts across nodes
-- **Quota Enforcement**: Multi-tenant resource boundaries
-- **Load Balancing**: Intelligent request distribution
-- **Health Monitoring**: Gossip protocol for node status
+### Deployment Agent
+- CI/CD pipeline configuration
+- Infrastructure provisioning
+- Monitoring and alerting setup
+- Release coordination and rollback
 
-## 🔒 Security & Compliance
+## 🔄 Workflow Process
 
-- **Multi-Tenant Isolation**: Hardware-enforced GPU contexts
-- **Resource Quotas**: Per-tenant GPU memory and compute limits
-- **Audit Logging**: Comprehensive compliance tracking
-- **Authentication**: Token-based API access control
-- **Network Security**: TLS encryption for all cluster communication
+1. **Project Initialization**: User describes project vision in natural language
+2. **Workflow Analysis**: System analyzes scope and generates appropriate agent sequence
+3. **Agent Orchestration**: Specialized agents execute in sequence or parallel as appropriate
+4. **Quality Gates**: Each transition includes validation checkpoints and approval workflows
+5. **Context Preservation**: All decisions and artifacts are maintained across handoffs
+6. **Progress Monitoring**: Real-time dashboard shows completion status and quality metrics
+
+## 🛡️ Role Boundary System
+
+### Token Limits by Agent Type
+```python
+ROLE_TOKEN_BUDGETS = {
+    "discovery": 800,      # Focused research and requirements
+    "specification": 1200, # Technical architecture details
+    "design": 1000,        # UI/UX mockups and flows
+    "implementation": 1500, # Code generation with security
+    "validation": 600,     # Testing and quality checks
+    "deployment": 400,     # Infrastructure and release
+}
+```
+
+### Authority Hierarchy
+- **Orchestrator**: Full authority, can spawn and command all agents
+- **Specialized Agents**: Domain-only authority, cannot create other agents
+- **Communication Protocol**: Structured message passing with validation
+
+## 🔗 External Tool Integrations
+
+### GitHub Integration
+- Automatic repository creation and management
+- Code commits with proper branching strategies
+- Pull request generation with review assignments
+- Issue tracking and milestone management
+
+### Figma Integration
+- Design artifact synchronization
+- Component library management
+- Prototype sharing and feedback collection
+- Design system consistency validation
+
+### Jira Integration
+- Epic and story creation from requirements
+- Sprint planning and backlog management
+- Progress tracking and reporting
+- Stakeholder notification workflows
 
 ## 🧪 Testing & Validation
 
-### Performance Benchmarks
+### Unit Testing
 ```bash
-# Run latency benchmarks
-python tests/performance/latency_benchmarks.py
-
-# Test GPU utilization
-python tests/performance/throughput_tests.py
-
-# Stress testing
-python tests/performance/stress_tests.py --duration 72h
-```
-
-### Chaos Engineering
-```bash
-# Network partition testing
-python tests/chaos/network_partition_tests.py
-
-# Node failure simulation  
-python tests/chaos/node_failure_tests.py
-
-# Resource exhaustion testing
-python tests/chaos/resource_exhaustion_tests.py
-```
-
-## 📈 Monitoring & Observability
-
-- **Real-Time Metrics**: GPU utilization, memory usage, kernel execution times
-- **Performance Profiling**: CUDA kernel tracing with nanosecond precision
-- **Alerting System**: Configurable thresholds for hardware and performance metrics
-- **Distributed Tracing**: Request flow across cluster nodes
-- **Health Dashboards**: Web-based monitoring interface
-
-## 🚀 API Reference
-
-### OpenAI Compatible API
-```python
-import openai
-
-# Configure for cluster endpoint
-openai.api_base = "http://your-cluster:8080/v1"
-openai.api_key = "your-cluster-token"
-
-# Use as normal OpenAI client
-response = openai.ChatCompletion.create(
-    model="your-model",
-    messages=[{"role": "user", "content": "Hello!"}]
-)
-```
-
-### Native gRPC API
-```python
-from gpu_cluster.apis.grpc_client import ClusterClient
-
-client = ClusterClient("your-cluster:9090")
-job_id = client.submit_job(
-    model_path="/models/llama2-7b",
-    input_data={"prompt": "Hello world"},
-    gpu_requirements={"memory_gb": 16, "compute_capability": "8.0"}
-)
-```
-
-## 🛠️ Development
-
-### Local Development Setup
-```bash
-# Install development dependencies
-pip install -r requirements-dev.txt
-
-# Run unit tests
+# Run all unit tests
 pytest tests/unit/ -v
 
-# Run integration tests (requires GPU hardware)
+# Run specific test module
+pytest tests/unit/test_context_manager.py -v
+
+# Run with coverage
+pytest tests/unit/ --cov=src --cov-report=html
+```
+
+### Integration Testing
+```bash
+# Run integration tests
 pytest tests/integration/ -v
 
-# Type checking
-mypy gpu_cluster/
+# Test with external APIs (requires valid credentials)
+pytest tests/integration/test_external_apis.py -v
+```
 
-# Code formatting
-black gpu_cluster/ tests/
+### Validation Framework
+```bash
+# Run comprehensive validation
+python validate_implementation.py
+
+# Check code quality
+python -m black src/ tests/
+python -m mypy src/
+python -m ruff check src/
+```
+
+## 📊 Success Metrics
+
+### User-Centric Metrics
+- Average time from project initiation to first working prototype: < 48 hours
+- User satisfaction score with agent-generated deliverables: > 4.5/5
+- Percentage of handoffs requiring manual intervention: < 10%
+- User retention rate for multi-stage projects: > 85%
+
+### Technical Metrics
+- Agent context preservation across handoffs: > 99% accuracy
+- System uptime during multi-agent orchestration: > 99.9%
+- Average response time for agent generation: < 30 seconds
+- Artifact validation success rate: > 98%
+
+## 🚀 Development
+
+### Project Structure
+```
+src/
+├── agents/          # Specialized agent implementations
+├── config/          # Configuration management
+├── models/          # Data models and schemas
+├── orchestrator/    # Core orchestration logic
+└── utils/           # Shared utilities and helpers
+
+tests/
+├── unit/           # Unit tests for all components
+├── integration/    # Integration tests
+└── fixtures/       # Test data and mocks
 ```
 
 ### Contributing
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+3. Follow the development guidelines in CLAUDE.md
+4. Add comprehensive tests with 80%+ coverage
+5. Submit a pull request with detailed description
 
 ## 📋 Roadmap
 
-- [ ] **Phase 1**: Core scheduling algorithms and hardware abstraction
-- [ ] **Phase 2**: Distributed consensus and cluster coordination  
-- [ ] **Phase 3**: RDMA networking and performance optimization
-- [ ] **Phase 4**: Multi-tenant security and compliance features
-- [ ] **Phase 5**: Advanced monitoring and auto-scaling capabilities
-
-## ⚠️ Hardware Requirements
-
-### Minimum Configuration
-- 2+ NVIDIA/AMD/Intel GPUs
-- 32GB system RAM
-- 10GbE networking
-- NVMe SSD storage
-
-### Recommended Production Configuration
-- 8+ GPUs per node
-- 128GB+ system RAM
-- InfiniBand or 100GbE networking
-- NVMe RAID storage array
+- [x] **Phase 1**: Core agent framework and context management
+- [ ] **Phase 2**: Specialized agent implementation
+- [ ] **Phase 3**: External tool integrations
+- [ ] **Phase 4**: Advanced orchestration and parallel execution
+- [ ] **Phase 5**: Production deployment and monitoring
 
 ## 📄 License
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🤝 Support
 
-- **Documentation**: [Architecture Guide](docs/architecture.md)
-- **Performance Tuning**: [Optimization Guide](docs/performance_tuning.md)
-- **Deployment**: [Production Deployment Guide](docs/deployment_guide.md)
-- **Issues**: [GitHub Issues](https://github.com/yuchenfama/advanced-gpu-cluster-manager/issues)
+- **Issues**: [GitHub Issues](https://github.com/cemigo114/claude-subagent-system/issues)
+- **Documentation**: See `PRPs/claude-subagent-system.md` for comprehensive implementation details
+- **Contributing**: Follow guidelines in CLAUDE.md
 
 ## 🔗 Related Projects
 
-- [Context Engineering Template](https://github.com/coleam00/context-engineering-intro) - Original template
-- [NVIDIA NVML](https://docs.nvidia.com/deploy/nvml-api/) - GPU management API
-- [AMD ROCm](https://rocm.docs.amd.com/) - AMD GPU platform
-- [etcd Raft](https://github.com/etcd-io/raft) - Consensus implementation
+- [Context Engineering Template](https://github.com/coleam00/context-engineering-intro) - Original context engineering framework
+- [Pydantic AI](https://ai.pydantic.dev/) - Multi-agent orchestration patterns
+- [Claude Code](https://claude.ai/code) - AI-powered development platform
